@@ -3,6 +3,11 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
+  srcDir: 'app',
+
+  axios: {
+    baseURL: 'https://nuxt-sample-22587.firebaseio.com/'
+  },
 
   /*
   ** Headers of the page
@@ -52,7 +57,7 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      
+
     }
   }
 }
