@@ -1,4 +1,5 @@
 export const strict = false
+
 import firebase from '../plugins/firebase.js'
 
 
