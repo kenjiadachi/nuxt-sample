@@ -1,5 +1,5 @@
 <template lang="pug">
-  section
+  section.section
     b-field(label="Title")
       b-input(v-model="formData.title")
     b-field(label="Body")
@@ -13,7 +13,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  asyncData({ redirect, store }) {
+  async asyncData({ redirect, store }) {
     if (!store.getters['isLogin']) {
       redirect('/')
     }
@@ -33,13 +33,15 @@ export default {
   methods: {
     async publish() {
       const payload = {
-        user: this.user,
+        user: {
+          uid: this.user.uid,
+          displayName: this.user.displayName,
+        },
         ...this.formData
       }
       await this.publishPost({ payload })
       this.$router.push('/posts')
     },
-    ...mapActions('users', ['updateUser']),
     ...mapActions('posts', ['publishPost']),
     ...mapActions(['autoLogin'])
   }
