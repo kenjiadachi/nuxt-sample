@@ -41,6 +41,10 @@ export const actions = {
   },
   async publishPost({ commit }, { payload }) {
     const user = payload.user
+    payload = {
+      created_at,
+      ...payload
+    }
     const post_id = (await this.$axios.$post('/posts.json', payload)).name
     const created_at = moment().format()
     const post = { id: post_id, ...payload, created_at }

@@ -2,7 +2,7 @@
 section.section
   .columns.is-multiline
     .column.is-one-third(v-for="post of posts" :key="posts.id")
-      .card(@click="handleClick")
+      .card(@click="handleClick(post)")
         .card-content
           p.title
             | {{ post.title }}
