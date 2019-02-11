@@ -1,20 +1,17 @@
 <template lang="pug">
 section.section
   .columns.is-multiline
-    .column.is-one-third(v-for="post of posts" :key="posts.id")
-      .card(@click="handleClick(post)")
-        .card-content
-          p.title
-            | {{ post.title }}
-          p.subtitle
-            | {{ post.user.displayName }}
-          p.is-6
-            | {{ post.created_at}}
+    .column.is-one-third(v-for="post of posts" :key="post.id")
+      post-card(
+        v-bind:post = "post"
+        v-bind:user = "post.user"
+      )
 </template>
 
 <script>
 import moment from '~/plugins/moment'
 import { mapGetters, mapActions } from 'vuex'
+import PostCard from '~/components/PostCard.vue'
 export default {
   async asyncData({ redirect, store }) {
     if (!store.getters['isLogin']) {
@@ -36,10 +33,10 @@ export default {
     this.autoLogin()
   },
   methods: {
-    ...mapActions(['autoLogin']),
-    handleClick(post) {
-      this.$router.push(`/posts/${post.id}`)
-    }
+    ...mapActions(['autoLogin'])
+  },
+  components: {
+    PostCard
   }
 }
 </script>

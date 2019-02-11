@@ -23,21 +23,31 @@ export const mutations = {
 }
 
 export const actions = {
-  async googleLogin ({ commit }) {
-    firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider())
-      .then(function(result) {
-        // 成功時の処理
-      }).catch(function(error) {
-        // エラー処理
-      });
+  async googleLogin () {
+    const users = await this.$axios.$get(`/users.json`)
+    const userUids = !!users ? Object.keys(users) : []
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function(result) {
+      if (userUids.indexOf(result.user.uid) >= 0) {
+        firebase.database().ref('users/' + result.user.uid).update({
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        });
+      } else {
+        firebase.database().ref('users/' + result.user.uid).set({
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        });
+      }
+    }).catch(function(error) {
+      console.log(error)
+    });
   },
-  async logout ({ commit }) {
-    firebase.auth().signOut()
-      .then(function() {
-        // 成功時の処理
-      }).catch(function(error) {
-        // エラー処理
-      });
+  async logout () {
+    firebase.auth().signOut().then(function() {
+      // 成功時の処理
+    }).catch(function(error) {
+      // エラー処理
+    });
   },
   async autoLogin({ commit }) {
     firebase.auth().onAuthStateChanged(user => {

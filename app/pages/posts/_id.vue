@@ -1,7 +1,7 @@
 <template lang="pug">
 section.section
   p.title {{ post.title }}
-  p.subtitle {{ post.user.displayName }}
+  p.subtitle(@click="handleClick(post.user)") {{ post.user.displayName }}
   p {{ post.body }}
 </template>
 
@@ -44,6 +44,9 @@ export default {
   },
   methods: {
     ...mapActions(['autoLogin']),
+    handleClick(user) {
+      this.$router.push(`/users/${user.uid}`)
+    }
   }
 }
 
