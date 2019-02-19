@@ -27,7 +27,7 @@ export default {
         post.created_at = moment(post.created_at).format('YYYY/MM/DD HH:mm:ss')
         return post
       })
-    }
+    },
   },
   async mounted() {
     this.autoLogin()

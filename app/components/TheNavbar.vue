@@ -11,10 +11,11 @@
       .navbar-end
         .navbar-item
           .buttons
-            button.button.is-primary.is-inverted(@click="logout" v-if="this.isLogin")
-              strong ログアウト
-            button.button.is-primary.is-inverted(@click="googleLogin" v-else)
-              strong ログイン
+            no-ssr
+              button.button.is-primary.is-inverted(@click="logout" v-if="this.isLogin")
+                strong ログアウト
+              button.button.is-primary.is-inverted(@click="googleLogin" v-else)
+                strong ログイン
 </template>
 
 <script>

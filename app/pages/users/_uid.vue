@@ -8,7 +8,7 @@ section.section
             img(:src="user.photoURL")
         .card-content.has-text-centered
           p.title.is-4
-            | {{ user.displayName }}
+            | {{ author.displayName }}
     .column
       .columns.is-multiline
         .column.is-half(v-for="post of userPosts" :key="post.id")
@@ -38,12 +38,15 @@ export default {
         return { id, ...post }
       })
     },
-    user() {
+    author() {
       const user = this.users.find(u => u.uid === this.$route.params.uid)
       if(!user) return null
       return Object.assign({ posts: [] }, user )
     },
-    ...mapGetters('users', ['users'])
+    ...mapGetters('users', ['users']),
+  },
+  async mounted() {
+    this.autoLogin()
   },
   components: {
     PostCard

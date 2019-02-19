@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['user', 'isLogin'])
+    ...mapGetters(['user', 'isLogin']),
   },
   async mounted() {
     this.autoLogin()

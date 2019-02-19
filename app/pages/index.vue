@@ -22,13 +22,13 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'HomePage',
   computed: {
-    ...mapGetters(['user', 'isLogin'])
-  },
-  components: {
-    Card
+    ...mapGetters(['user', 'isLogin']),
   },
   async mounted() {
     this.autoLogin()
+  },
+  components: {
+    Card
   },
   methods: {
     ...mapActions(['autoLogin'])
